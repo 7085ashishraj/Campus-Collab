@@ -77,8 +77,53 @@ const logoutUser = (req, res) => {
     res.status(200).json({ message: 'Logged out successfully' });
 };
 
+// @desc    Update user profile
+// @route   PUT /api/auth/profile
+// @access  Private
+const updateUserProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+
+        if (user) {
+            user.name = req.body.name || user.name;
+            user.email = req.body.email || user.email;
+            user.university = req.body.university || user.university;
+            user.bio = req.body.bio || user.bio;
+            user.skills = req.body.skills || user.skills;
+            user.githubId = req.body.githubId || user.githubId;
+
+            if (req.body.password) {
+                user.password = req.body.password;
+            }
+
+            const updatedUser = await user.save();
+
+            const generateToken = require('../utils/generateToken');
+            // We don't necessarily need to generate a new token if we aren't changing auth criticals, but good practice if roles changed etc.
+            // For now just return user info.
+
+            res.json({
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                university: updatedUser.university,
+                bio: updatedUser.bio,
+                skills: updatedUser.skills,
+                githubId: updatedUser.githubId,
+                avatar: updatedUser.avatar,
+                // token: generateToken(res, updatedUser._id), 
+            });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    updateUserProfile
 };

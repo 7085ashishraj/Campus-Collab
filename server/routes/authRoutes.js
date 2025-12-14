@@ -9,5 +9,6 @@ const {
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/logout', logoutUser);
+router.put('/profile', require('../middleware/authMiddleware').protect, require('../controllers/authController').updateUserProfile);
 
 module.exports = router;

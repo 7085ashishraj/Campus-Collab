@@ -23,6 +23,10 @@ const userSchema = mongoose.Schema({
         type: String,
         default: ''
     },
+    githubId: {
+        type: String,
+        default: ''
+    },
     skills: [{
         type: String
     }],

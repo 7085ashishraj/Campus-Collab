@@ -39,7 +39,35 @@ const projectSchema = mongoose.Schema({
     }],
     image: {
         type: String // Project cover image URL
-    }
+    },
+    collaborationRequests: [{
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        status: {
+            type: String,
+            enum: ['pending', 'accepted', 'rejected'],
+            default: 'pending'
+        },
+        message: String,
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
+    }],
+    files: [{
+        name: String,
+        path: String,
+        uploader: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        uploadedAt: {
+            type: Date,
+            default: Date.now
+        }
+    }]
 }, {
     timestamps: true
 });
