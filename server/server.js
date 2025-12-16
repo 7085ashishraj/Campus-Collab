@@ -37,6 +37,8 @@ app.use('/api/upload', require('./routes/uploadRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
 app.use('/api/chat', require('./routes/chatRoutes'));
 app.use('/api/message', require('./routes/messageRoutes'));
+app.use('/api/articles', require('./routes/articleRoutes'));
+app.use('/api/questions', require('./routes/questionRoutes'));
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

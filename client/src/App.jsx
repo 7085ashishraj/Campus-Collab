@@ -10,6 +10,12 @@ import ChatPage from './pages/ChatPage';
 import AuthLayout from './components/AuthLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Landing from './pages/Landing';
+import ArticleList from './pages/Articles/ArticleList';
+import CreateArticle from './pages/Articles/CreateArticle';
+import ArticleDetails from './pages/Articles/ArticleDetails';
+import QuestionList from './pages/QnA/QuestionList';
+import AskQuestion from './pages/QnA/AskQuestion';
+import QuestionDetails from './pages/QnA/QuestionDetails';
 
 function App() {
     return (
@@ -26,6 +32,12 @@ function App() {
                     <Route path="/chats" element={<ChatPage />} />
                     <Route path="/projects/new" element={<CreateProject />} />
                     <Route path="/projects/:id" element={<ProjectDetails />} />
+                    <Route path="/articles" element={<ArticleList />} />
+                    <Route path="/articles/new" element={<CreateArticle />} />
+                    <Route path="/articles/:id" element={<ArticleDetails />} />
+                    <Route path="/questions" element={<QuestionList />} />
+                    <Route path="/questions/ask" element={<AskQuestion />} />
+                    <Route path="/questions/:id" element={<QuestionDetails />} />
                 </Route>
             </Routes>
             <ToastContainer position="bottom-right" />

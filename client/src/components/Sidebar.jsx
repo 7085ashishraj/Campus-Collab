@@ -11,6 +11,8 @@ import {
     LogOut,
     GraduationCap,
     Settings,
+    BookOpen,
+    HelpCircle
 } from 'lucide-react';
 
 const Sidebar = () => {
@@ -33,6 +35,8 @@ const Sidebar = () => {
             badge: notification.length > 0 ? notification.length : null
         },
         { to: "/projects/new", icon: <PlusCircle className="w-5 h-5" />, label: "Create Project" },
+        { to: "/articles", icon: <BookOpen className="w-5 h-5" />, label: "Articles" },
+        { to: "/questions", icon: <HelpCircle className="w-5 h-5" />, label: "Q&A Forum" },
     ];
 
     return (

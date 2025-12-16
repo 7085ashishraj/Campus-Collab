@@ -6,13 +6,13 @@ const projects = [
         title: "EcoTrack",
         description: "A sustainable lifestyle tracking app built with React Native and Node.js.",
         tags: ["Mobile", "Sustainability", "React Native"],
-        image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80"
+        image: "/assets/images/campus_buy.png"
     },
     {
         title: "CampusBuy",
         description: "Student marketplace for textbooks and furniture within campus.",
         tags: ["Web", "E-commerce", "MERN"],
-        image: "https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?w=800&q=80"
+        image: "https://plus.unsplash.com/premium_photo-1664300897489-fd98eee64faf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         title: "StudyBuddy",

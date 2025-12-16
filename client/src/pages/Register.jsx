@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { GraduationCap, User, Mail, Lock, Building, Code2, ArrowRight, Loader2 } from 'lucide-react';
+import { GraduationCap, User, Mail, Lock, Building, Code2, ArrowRight, Loader2, School, Eye, EyeOff, BookOpen } from 'lucide-react';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { register: registerUser } = useAuth();
     const navigate = useNavigate();
     const [serverError, setServerError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = async (data) => {
@@ -24,7 +25,7 @@ const Register = () => {
         } catch (error) {
             setServerError(error.response?.data?.message || 'Registration failed. Please try again.');
         } finally {
-            setLoading(false); // Updated from setIsLoading
+            setIsLoading(false);
         }
     };
 
@@ -104,6 +105,16 @@ const Register = () => {
                                         className="block w-full pl-10 pr-10 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                         placeholder="••••••••"
                                     />
+                                    <div
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                    >
+                                        {showPassword ? (
+                                            <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-500" />
+                                        ) : (
+                                            <Eye className="h-5 w-5 text-gray-400 hover:text-gray-500" />
+                                        )}
+                                    </div>
                                 </div>
                                 {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>}
                             </div>
@@ -143,10 +154,10 @@ const Register = () => {
                         <div>
                             <button
                                 type="submit"
-                                disabled={loading}
-                                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                disabled={isLoading}
+                                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
                             >
-                                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Create Account'}
+                                {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Create Account'}
                             </button>
                         </div>
                     </form>
