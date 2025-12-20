@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import ThemeToggle from './ThemeToggle';
+
 
 const AuthLayout = () => {
     const { user, loading } = useAuth();
@@ -16,9 +16,7 @@ const AuthLayout = () => {
     // If user is already logged in, redirect to dashboard
     return !user ? (
         <div className="relative min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
-            <div className="absolute top-4 right-4 z-50">
-                <ThemeToggle />
-            </div>
+
             <Outlet />
         </div>
     ) : <Navigate to="/dashboard" replace />;

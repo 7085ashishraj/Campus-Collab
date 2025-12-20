@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useChat } from '../context/ChatProvider';
-import NotificationBell from './NotificationBell';
 import ProfileModal from './ProfileModal';
 import {
     LayoutDashboard,
@@ -10,19 +9,20 @@ import {
     PlusCircle,
     LogOut,
     GraduationCap,
-    Settings,
     BookOpen,
     HelpCircle
 } from 'lucide-react';
 
-const Sidebar = () => {
+const Sidebar = ({ isMobile = false, onLinkClick }) => {
     const { user, logout } = useAuth();
     const { notification } = useChat();
     const navigate = useNavigate();
+    const location = useLocation();
     const [showProfileModal, setShowProfileModal] = useState(false);
 
     const handleLogout = () => {
         logout();
+        if (onLinkClick) onLinkClick();
         navigate('/');
     };
 
@@ -39,9 +39,13 @@ const Sidebar = () => {
         { to: "/questions", icon: <HelpCircle className="w-5 h-5" />, label: "Q&A Forum" },
     ];
 
+    const sidebarClasses = isMobile
+        ? "flex flex-col w-full h-full bg-white/90 dark:bg-gray-900/90 transition-colors"
+        : "fixed inset-y-0 left-0 w-64 bg-white/40 dark:bg-black/20 border-r border-white/20 dark:border-white/10 z-30 hidden lg:flex flex-col transition-colors shadow-lg";
+
     return (
         <>
-            <aside className="fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-30 hidden lg:flex flex-col transition-colors">
+            <aside className={sidebarClasses}>
                 <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
                     <div className="flex items-center gap-2">
                         <GraduationCap className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
@@ -77,6 +81,7 @@ const Sidebar = () => {
                             <NavLink
                                 key={item.to}
                                 to={item.to}
+                                onClick={onLinkClick}
                                 className={({ isActive }) =>
                                     `flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive
                                         ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-none'
@@ -99,14 +104,8 @@ const Sidebar = () => {
                     </nav>
 
                     <div className="px-4 mt-auto space-y-1">
-                        <div className="px-3 py-2.5 flex items-center justify-between text-sm font-medium text-gray-600 dark:text-gray-400">
-                            <span>Notifications</span>
-                            <NotificationBell />
-                        </div>
-                        <button className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white w-full transition-colors">
-                            <Settings className="w-5 h-5" />
-                            Settings
-                        </button>
+
+
                         <button
                             onClick={handleLogout}
                             className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 w-full transition-colors"

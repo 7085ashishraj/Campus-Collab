@@ -4,10 +4,10 @@ import { ArrowRight } from 'lucide-react';
 
 const CTASection = () => {
     return (
-        <section className="py-24 bg-white dark:bg-gray-900 transition-colors">
+        <section className="py-24 bg-transparent border-t border-white/10">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">Ready to start your journey?</h2>
-                <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+                <h2 className="text-4xl font-bold text-white mb-6">Ready to start your journey?</h2>
+                <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
                     Join thousands of students who are already collaborating, learning, and building amazing things together.
                 </p>
 
@@ -21,7 +21,7 @@ const CTASection = () => {
                     </Link>
                     <Link
                         to="/login"
-                        className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors hover:border-gray-300 dark:hover:border-gray-600"
+                        className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-xl font-semibold hover:bg-white/20 transition-colors"
                     >
                         I already have an account
                     </Link>

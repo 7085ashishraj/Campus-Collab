@@ -23,7 +23,7 @@ const QuestionList = () => {
     };
 
     return (
-        <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 p-8 pt-20 lg:pt-8 lg:pl-72">
+        <div className="flex-1 overflow-y-auto p-8 pt-20 lg:pt-8 lg:pl-72">
             <div className="flex justify-between items-center mb-8">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Q&A Forum</h1>
@@ -46,7 +46,7 @@ const QuestionList = () => {
                         <Link
                             key={question._id}
                             to={`/questions/${question._id}`}
-                            className="block bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow"
+                            className="block bg-white/40 dark:bg-black/20 backdrop-blur-md rounded-xl shadow-lg border border-white/20 dark:border-white/10 p-6 hover:shadow-xl hover:bg-white/50 dark:hover:bg-black/30 transition-all"
                         >
                             <div className="flex items-start justify-between">
                                 <div className="flex-1">

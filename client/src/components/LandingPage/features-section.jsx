@@ -36,23 +36,23 @@ const features = [
 
 const FeaturesSection = () => {
     return (
-        <section id="features" className="py-24 bg-white dark:bg-gray-900 transition-colors">
+        <section id="features" className="py-24 bg-transparent">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Everything you need to succeed</h2>
-                    <p className="text-xl text-gray-600 dark:text-gray-400">
+                    <h2 className="text-3xl font-bold text-white mb-4">Everything you need to succeed</h2>
+                    <p className="text-xl text-gray-300">
                         CampusCollab provides all the tools necessary to turn your innovative ideas into working products.
                     </p>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {features.map((feature, index) => (
-                        <div key={index} className="p-8 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-indigo-100 dark:hover:border-indigo-900 hover:shadow-xl hover:shadow-indigo-50 dark:hover:shadow-none transition-all group">
-                            <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-6 group-hover:scale-110 transition-transform">
+                        <div key={index} className="p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 hover:border-white/20 hover:bg-white/15 transition-all group">
+                            <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center text-indigo-400 mb-6 group-hover:scale-110 transition-transform">
                                 {feature.icon}
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
-                            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{feature.description}</p>
+                            <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
+                            <p className="text-gray-300 leading-relaxed">{feature.description}</p>
                         </div>
                     ))}
                 </div>

@@ -12,8 +12,8 @@ const ChatPage = () => {
     // Height calculation: 100vh - (padding/header height of dashboard layout)
     // We'll use h-[calc(100vh-2rem)] or similar to fit within the padded main area
     return (
-        <div className="w-full h-[calc(100vh-4rem)] bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="flex w-full h-full">
+        <div className="w-full h-[calc(100vh-4rem)]">
+            <div className="flex w-full h-full gap-4">
                 {user && <MyChats fetchAgain={false} />}
                 {user && (
                     <div className={`${selectedChat ? 'flex' : 'hidden'} md:flex w-full md:w-[68%]`}>

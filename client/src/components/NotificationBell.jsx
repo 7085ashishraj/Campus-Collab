@@ -86,7 +86,7 @@ const NotificationBell = () => {
         <div className="relative" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="relative p-1 text-gray-600 hover:text-blue-600 focus:outline-none"
+                className="relative p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors focus:outline-none"
             >
                 <Bell className="w-6 h-6" />
                 {unreadCount > 0 && (
@@ -97,22 +97,22 @@ const NotificationBell = () => {
             </button>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg overflow-hidden z-50 ring-1 ring-black ring-opacity-5">
-                    <div className="py-2 px-4 bg-gray-50 border-b flex justify-between items-center">
-                        <span className="font-semibold text-gray-700">Notifications</span>
+                <div className="absolute top-full right-0 mt-2 w-80 bg-white/80 dark:bg-black/80 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden z-50 border border-white/20 dark:border-white/10 ring-1 ring-black/5">
+                    <div className="py-3 px-4 bg-white/50 dark:bg-white/5 border-b border-gray-200/50 dark:border-gray-700/50 flex justify-between items-center backdrop-blur-sm">
+                        <span className="font-semibold text-gray-800 dark:text-white">Notifications</span>
                         {unreadCount > 0 && (
                             <button
                                 onClick={markAllRead}
-                                className="text-xs text-blue-600 hover:text-blue-800"
+                                className="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors"
                             >
                                 Mark all read
                             </button>
                         )}
                     </div>
 
-                    <div className="max-h-96 overflow-y-auto">
+                    <div className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600">
                         {notifications.length === 0 ? (
-                            <div className="py-4 text-center text-gray-500 text-sm">
+                            <div className="py-8 text-center text-gray-500 dark:text-gray-400 text-sm">
                                 No notifications
                             </div>
                         ) : (
@@ -121,16 +121,16 @@ const NotificationBell = () => {
                                     <li
                                         key={notification._id}
                                         onClick={() => !notification.read && markAsRead(notification._id)}
-                                        className={`px-4 py-3 border-b hover:bg-gray-50 cursor-pointer flex items-start ${!notification.read ? 'bg-blue-50' : ''}`}
+                                        className={`px-4 py-3 border-b border-gray-100 dark:border-gray-800 hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer flex items-start transition-colors ${!notification.read ? 'bg-indigo-50/50 dark:bg-indigo-900/20' : ''}`}
                                     >
                                         <div className={`mt-1 flex-shrink-0 ${getIconColor(notification.type)}`}>
                                             <div className="w-2 h-2 rounded-full bg-current"></div>
                                         </div>
                                         <div className="ml-3 flex-1">
-                                            <p className={`text-sm ${!notification.read ? 'font-semibold text-gray-800' : 'text-gray-600'}`}>
+                                            <p className={`text-sm ${!notification.read ? 'font-semibold text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300'}`}>
                                                 {notification.message}
                                             </p>
-                                            <p className="text-xs text-gray-400 mt-1">
+                                            <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                                                 {new Date(notification.createdAt).toLocaleDateString()}
                                             </p>
                                         </div>

@@ -45,14 +45,14 @@ const ArticleDetails = () => {
     const isLiked = user && article.likes.includes(user._id);
 
     return (
-        <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 p-8 pt-20 lg:pt-8 lg:pl-72">
+        <div className="flex-1 overflow-y-auto p-8 pt-20 lg:pt-8 lg:pl-72">
             <div className="max-w-4xl mx-auto">
                 <Link to="/articles" className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-indigo-600 mb-6 transition-colors">
                     <ArrowLeft className="w-5 h-5 mr-2" />
                     Back to Articles
                 </Link>
 
-                <article className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <article className="bg-white/40 dark:bg-black/20 backdrop-blur-xl rounded-xl shadow-sm border border-white/20 dark:border-white/10 overflow-hidden">
                     <div className="p-8">
                         <div className="flex items-center gap-4 mb-6">
                             <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
@@ -90,7 +90,7 @@ const ArticleDetails = () => {
                         </div>
                     </div>
 
-                    <div className="bg-gray-50 dark:bg-gray-900/50 px-8 py-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                    <div className="bg-white/30 dark:bg-white/5 px-8 py-4 border-t border-white/20 dark:border-white/10 flex items-center justify-between">
                         <button
                             onClick={handleLike}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${isLiked

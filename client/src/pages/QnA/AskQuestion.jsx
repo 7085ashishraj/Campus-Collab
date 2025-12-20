@@ -39,7 +39,7 @@ const AskQuestion = () => {
         <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 p-8 pt-20 lg:pt-8 lg:pl-72">
             <div className="max-w-3xl mx-auto">
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Ask a Question</h1>
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div className="bg-white/40 dark:bg-black/20 backdrop-blur-md rounded-xl shadow-lg border border-white/20 dark:border-white/10 p-6">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Title</label>
@@ -47,7 +47,7 @@ const AskQuestion = () => {
                                 type="text"
                                 required
                                 placeholder="What's your question? Be specific."
-                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                                className="w-full px-4 py-2 rounded-lg border border-white/20 dark:border-white/10 bg-white/50 dark:bg-black/40 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 backdrop-blur-sm transition-all"
                                 value={formData.title}
                                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                             />
@@ -58,7 +58,7 @@ const AskQuestion = () => {
                                 required
                                 rows={8}
                                 placeholder="Provide more details about your problem..."
-                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                                className="w-full px-4 py-2 rounded-lg border border-white/20 dark:border-white/10 bg-white/50 dark:bg-black/40 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 backdrop-blur-sm transition-all"
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                             />
@@ -68,7 +68,7 @@ const AskQuestion = () => {
                             <input
                                 type="text"
                                 placeholder="javascript, react, backend"
-                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                                className="w-full px-4 py-2 rounded-lg border border-white/20 dark:border-white/10 bg-white/50 dark:bg-black/40 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 backdrop-blur-sm transition-all"
                                 value={formData.tags}
                                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                             />
@@ -77,7 +77,7 @@ const AskQuestion = () => {
                             <button
                                 type="button"
                                 onClick={() => navigate('/questions')}
-                                className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                                className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-white/50 dark:hover:bg-white/10 rounded-lg transition-colors"
                             >
                                 Cancel
                             </button>

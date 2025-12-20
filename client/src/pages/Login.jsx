@@ -26,19 +26,21 @@ const Login = () => {
 
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900 flex transition-colors">
-            {/* Left Side - Image/Deco */}
-            <div className="hidden lg:block lg:w-1/2 relative bg-indigo-600 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-blue-700 opacity-90"></div>
+
+            <div className="hidden lg:block lg:w-1/2 relative bg-indigo-900 overflow-hidden">
+                <img
+                    src="https://images.unsplash.com/photo-1642130935796-1409d7e075dd?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Login Background"
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-indigo-900/60 mix-blend-multiply"></div>
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-12 z-10 text-center">
-                    <GraduationCap className="h-24 w-24 mb-8 text-indigo-200" />
+                    <GraduationCap className="h-24 w-24 mb-8 text-indigo-100" />
                     <h1 className="text-4xl font-bold mb-6">Welcome Back</h1>
                     <p className="text-xl text-indigo-100 max-w-md">
                         Connect, collaborate, and create with fellow students on CampusCollab.
                     </p>
                 </div>
-                {/* Decorative circles */}
-                <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white opacity-10 rounded-full blur-3xl"></div>
-                <div className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-indigo-400 opacity-20 rounded-full blur-3xl"></div>
             </div>
 
             {/* Right Side - Form */}
@@ -89,7 +91,6 @@ const Login = () => {
                             <div>
                                 <div className="flex items-center justify-between mb-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
-                                    <a href="#" className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500">Forgot password?</a>
                                 </div>
                                 <div className="relative">
                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

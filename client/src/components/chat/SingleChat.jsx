@@ -132,14 +132,27 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const ScrollableChat = ({ messages }) => {
         // Auto scroll to bottom effect can be added with useRef if needed
         return (
-            <div className="overflow-y-auto h-full flex flex-col space-y-2 p-2">
+            <div className="overflow-y-auto h-full flex flex-col space-y-3 p-4 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600">
                 {messages && messages.map((m, i) => (
-                    <div className={`flex ${m.sender._id === user._id ? "justify-end" : "justify-start"}`} key={m._id}>
+                    <div className={`flex flex-col ${m.sender._id === user._id ? "items-end" : "items-start"}`} key={m._id}>
+                        {m.sender._id !== user._id && (
+                            <span className="text-xs text-gray-500 dark:text-gray-400 ml-2 mb-1">
+                                {m.sender.name}
+                            </span>
+                        )}
                         <div
-                            className={`rounded-lg py-1 px-3 max-w-[75%] ${m.sender._id === user._id ? "bg-blue-100" : "bg-gray-100"
+                            className={`rounded-2xl py-2 px-4 max-w-[75%] shadow-sm ${m.sender._id === user._id
+                                ? "bg-indigo-600 text-white rounded-br-none"
+                                : "bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 border border-gray-100 dark:border-gray-600 rounded-bl-none"
                                 }`}
                         >
-                            <span className="text-sm">{m.content}</span>
+                            <div className="flex flex-col min-w-[60px]">
+                                <span className="text-sm">{m.content}</span>
+                                <span className={`text-[10px] self-end mt-1 ${m.sender._id === user._id ? "text-indigo-200" : "text-gray-400"
+                                    }`}>
+                                    {new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -151,22 +164,24 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         <>
             {selectedChat ? (
                 <>
-                    <div className="text-xl pb-3 px-2 w-full font-sans flex justify-between items-center bg-white z-10 border-b">
+                    <div className="px-6 py-4 w-full font-sans flex justify-between items-center bg-white/40 dark:bg-black/20 backdrop-blur-md z-10 border-b border-white/20 dark:border-white/10 rounded-t-lg transition-colors">
                         <button
-                            className="md:hidden mr-2"
+                            className="md:hidden mr-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors text-gray-600 dark:text-gray-300"
                             onClick={() => setSelectedChat("")}
                         >
-                            <ArrowLeft />
+                            <ArrowLeft className="w-5 h-5" />
                         </button>
-                        {messages &&
-                            (!selectedChat.isGroupChat ? (
-                                <>{getSender(user, selectedChat.users)}</>
-                            ) : (
-                                <>{selectedChat.chatName.toUpperCase()}</>
-                            ))}
+                        <div className="text-lg font-semibold text-gray-800 dark:text-white">
+                            {messages &&
+                                (!selectedChat.isGroupChat ? (
+                                    <>{getSender(user, selectedChat.users)}</>
+                                ) : (
+                                    <>{selectedChat.chatName.toUpperCase()}</>
+                                ))}
+                        </div>
                     </div>
 
-                    <div className="flex flex-col justify-between p-3 bg-white w-full h-full rounded-lg overflow-hidden relative">
+                    <div className="flex flex-col justify-between p-0 bg-white/30 dark:bg-black/10 w-full h-full overflow-hidden relative transition-colors backdrop-blur-[1px]">
                         {loading ? (
                             <div className="flex self-center m-auto w-20 h-20 rounded-full animate-spin border-b-2 border-gray-900"></div>
                         ) : (
@@ -179,7 +194,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                             {isTyping ? <div>Loading...</div> : <></>}
                             <div className="flex items-center space-x-2">
                                 <input
-                                    className="bg-gray-100 w-full p-2 rounded border focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                    className="bg-white/50 dark:bg-black/40 w-full p-2 rounded border border-white/20 dark:border-white/10 focus:outline-none focus:ring-1 focus:ring-blue-500 backdrop-blur-sm text-gray-900 dark:text-white"
                                     placeholder="Enter a message.."
                                     value={newMessage}
                                     onChange={typingHandler}

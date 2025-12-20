@@ -69,7 +69,7 @@ const stats = [
 
 const StatsSection = () => {
     return (
-        <section id="stats" className="py-20 bg-indigo-600 dark:bg-indigo-900 transition-colors">
+        <section id="stats" className="py-20 bg-white/5 backdrop-blur-sm border-y border-white/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                     {stats.map((stat, index) => (
@@ -77,7 +77,7 @@ const StatsSection = () => {
                             <div className="text-4xl md:text-5xl font-bold text-white mb-2">
                                 <CountUp end={stat.value} suffix={stat.suffix} />
                             </div>
-                            <div className="text-indigo-200 dark:text-indigo-300 font-medium">{stat.label}</div>
+                            <div className="text-indigo-300 font-medium">{stat.label}</div>
                         </div>
                     ))}
                 </div>

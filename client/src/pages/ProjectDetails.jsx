@@ -186,7 +186,7 @@ const ProjectDetails = () => {
                 </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
+            <div className="bg-white/40 dark:bg-black/20 backdrop-blur-xl rounded-xl shadow-sm border border-white/20 dark:border-white/10 overflow-hidden mb-8">
                 {/* Header Banner */}
                 <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 px-8 py-10 text-white relative overflow-hidden">
                     {/* Decorative circles */}
@@ -234,7 +234,7 @@ const ProjectDetails = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-gray-200 dark:divide-gray-700">
+                <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-white/20 dark:divide-white/10">
                     {/* Main Content */}
                     <div className="lg:col-span-2 p-8">
                         <section className="mb-10">
@@ -282,7 +282,7 @@ const ProjectDetails = () => {
                                                 href={`http://localhost:5000${file.path}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-start p-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-indigo-300 dark:hover:border-indigo-500 hover:shadow-sm transition-all group"
+                                                className="flex items-start p-3 bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-lg hover:border-indigo-300 dark:hover:border-indigo-500 hover:shadow-sm transition-all group backdrop-blur-sm"
                                             >
                                                 <div className="p-2 bg-gray-50 dark:bg-gray-600 rounded-lg group-hover:bg-indigo-50 dark:group-hover:bg-gray-500 transition-colors mr-3">
                                                     <FileText className="w-5 h-5 text-gray-500 dark:text-gray-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400" />
@@ -313,7 +313,7 @@ const ProjectDetails = () => {
                                 </h2>
                                 <div className="space-y-3">
                                     {requests.map(req => req.user && (
-                                        <div key={req._id} className="flex items-center justify-between p-4 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl shadow-sm">
+                                        <div key={req._id} className="flex items-center justify-between p-4 bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-xl shadow-sm backdrop-blur-sm">
                                             <div className="flex items-center gap-4">
                                                 <div className="h-10 w-10 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-lg">
                                                     {req.user.name.charAt(0)}
@@ -347,7 +347,7 @@ const ProjectDetails = () => {
                     </div>
 
                     {/* Sidebar Info */}
-                    <div className="lg:col-span-1 bg-gray-50/50 dark:bg-gray-800/50 p-8 space-y-8">
+                    <div className="lg:col-span-1 bg-white/10 dark:bg-white/5 p-8 space-y-8 backdrop-blur-sm">
                         <div>
                             <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">Owner</h3>
                             <div className="flex items-center gap-3">
@@ -366,7 +366,7 @@ const ProjectDetails = () => {
                         <div>
                             <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">Tech Stack</h3>
                             <div className="flex flex-wrap gap-2">
-                                {project.techStack.map(tech => (
+                                {(project.techStack || []).map(tech => (
                                     <span key={tech} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300">
                                         {tech}
                                     </span>

@@ -59,7 +59,7 @@ const QuestionDetails = () => {
     if (!question) return <div className="p-8 pt-20 lg:pl-72 text-center">Question not found</div>;
 
     return (
-        <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 p-8 pt-20 lg:pt-8 lg:pl-72">
+        <div className="flex-1 overflow-y-auto p-8 pt-20 lg:pt-8 lg:pl-72">
             <div className="max-w-4xl mx-auto">
                 <Link to="/questions" className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-indigo-600 mb-6 transition-colors">
                     <ArrowLeft className="w-5 h-5 mr-2" />
@@ -67,7 +67,7 @@ const QuestionDetails = () => {
                 </Link>
 
                 {/* Question */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+                <div className="bg-white/40 dark:bg-black/20 backdrop-blur-xl rounded-xl shadow-sm border border-white/20 dark:border-white/10 overflow-hidden mb-6">
                     <div className="p-8">
                         <div className="flex items-center gap-4 mb-6">
                             <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
@@ -115,7 +115,7 @@ const QuestionDetails = () => {
 
                     <div className="space-y-4">
                         {question.answers.map((answer) => (
-                            <div key={answer._id} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                            <div key={answer._id} className="bg-white/40 dark:bg-black/20 backdrop-blur-xl rounded-xl shadow-sm border border-white/20 dark:border-white/10 p-6">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
                                         {answer.author?.avatar ? (
@@ -138,14 +138,14 @@ const QuestionDetails = () => {
                 </div>
 
                 {/* Add Answer Form */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div className="bg-white/40 dark:bg-black/20 backdrop-blur-xl rounded-xl shadow-sm border border-white/20 dark:border-white/10 p-6">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Your Answer</h3>
                     <form onSubmit={handleSubmitAnswer}>
                         <textarea
                             required
                             rows={4}
                             placeholder="Type your answer here..."
-                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 mb-4"
+                            className="w-full px-4 py-2 rounded-lg border border-white/20 dark:border-white/10 bg-white/50 dark:bg-black/40 backdrop-blur-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 mb-4"
                             value={newAnswer}
                             onChange={(e) => setNewAnswer(e.target.value)}
                         />

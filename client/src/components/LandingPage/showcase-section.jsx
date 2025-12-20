@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ExternalLink, Github } from 'lucide-react';
 
 const projects = [
@@ -6,13 +7,13 @@ const projects = [
         title: "EcoTrack",
         description: "A sustainable lifestyle tracking app built with React Native and Node.js.",
         tags: ["Mobile", "Sustainability", "React Native"],
-        image: "/assets/images/campus_buy.png"
+        image: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=800"
     },
     {
         title: "CampusBuy",
         description: "Student marketplace for textbooks and furniture within campus.",
         tags: ["Web", "E-commerce", "MERN"],
-        image: "https://plus.unsplash.com/premium_photo-1664300897489-fd98eee64faf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        image: "/assets/images/campus_buy.png"
     },
     {
         title: "StudyBuddy",
@@ -24,23 +25,23 @@ const projects = [
 
 const ShowcaseSection = () => {
     return (
-        <section id="showcase" className="py-24 bg-gray-50 dark:bg-gray-800 transition-colors">
+        <section id="showcase" className="py-24 bg-transparent">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <div className="max-w-2xl">
-                        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Featured Projects</h2>
-                        <p className="text-xl text-gray-600 dark:text-gray-400">
+                        <h2 className="text-3xl font-bold text-white mb-4">Featured Projects</h2>
+                        <p className="text-xl text-gray-300">
                             Check out some of the amazing projects built by students on CampusCollab.
                         </p>
                     </div>
-                    <button className="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-2">
+                    <Link to="/register" className="text-indigo-400 font-semibold hover:text-indigo-300 flex items-center gap-2">
                         View All Projects <ExternalLink className="h-4 w-4" />
-                    </button>
+                    </Link>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {projects.map((project, index) => (
-                        <div key={index} className="bg-white dark:bg-gray-700 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-600 group">
+                        <div key={index} className="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-white/10 group">
                             <div className="h-48 overflow-hidden">
                                 <img
                                     src={project.image}
@@ -49,22 +50,31 @@ const ShowcaseSection = () => {
                                 />
                             </div>
                             <div className="p-6">
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
-                                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">{project.description}</p>
+                                <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
+                                <p className="text-gray-300 mb-4 line-clamp-2">{project.description}</p>
                                 <div className="flex flex-wrap gap-2 mb-6">
                                     {project.tags.map((tag, i) => (
-                                        <span key={i} className="px-3 py-1 bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-300 text-xs font-medium rounded-full">
+                                        <span key={i} className="px-3 py-1 bg-white/10 text-gray-300 text-xs font-medium rounded-full">
                                             {tag}
                                         </span>
                                     ))}
                                 </div>
-                                <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-600">
+                                <div className="flex items-center justify-between pt-4 border-t border-white/10">
                                     <div className="flex -space-x-2">
-                                        {[1, 2, 3].map((_, i) => (
-                                            <div key={i} className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-500 border-2 border-white dark:border-gray-700" />
+                                        {[
+                                            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150",
+                                            "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150&h=150",
+                                            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150"
+                                        ].map((avatar, i) => (
+                                            <img
+                                                key={i}
+                                                src={avatar}
+                                                alt={`Collaborator ${i + 1}`}
+                                                className="w-8 h-8 rounded-full border-2 border-transparent object-cover"
+                                            />
                                         ))}
                                     </div>
-                                    <button className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">
+                                    <button className="p-2 text-gray-400 hover:text-white transition-colors">
                                         <Github className="h-5 w-5" />
                                     </button>
                                 </div>

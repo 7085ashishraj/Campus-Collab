@@ -29,7 +29,7 @@ const MyChats = ({ fetchAgain }) => {
     };
 
     return (
-        <div className={`${selectedChat ? 'hidden' : 'flex'} md:flex flex-col items-center p-3 bg-white dark:bg-gray-800 w-full md:w-[31%] rounded-lg border border-gray-200 dark:border-gray-700`}>
+        <div className={`${selectedChat ? 'hidden' : 'flex'} md:flex flex-col items-center p-3 bg-white/40 dark:bg-black/20 backdrop-blur-md w-full md:w-[31%] rounded-lg border border-white/20 dark:border-white/10 shadow-lg`}>
             <div className="pb-3 px-3 text-2xl font-sans flex w-full justify-between items-center text-gray-900 dark:text-white">
                 My Chats
                 {/* <GroupChatModal>
@@ -39,7 +39,7 @@ const MyChats = ({ fetchAgain }) => {
                 </GroupChatModal> */}
             </div>
 
-            <div className="flex flex-col p-3 bg-gray-50 dark:bg-gray-900 w-full h-full rounded-lg overflow-y-hidden transition-colors">
+            <div className="flex flex-col p-3 bg-black/5 dark:bg-white/5 w-full h-full rounded-lg overflow-y-hidden transition-colors">
                 {chats ? (
                     <div className="overflow-y-scroll space-y-2">
                         {chats.map((chat) => (
@@ -49,9 +49,9 @@ const MyChats = ({ fetchAgain }) => {
                                     setNotification(notification.filter((n) => n.chat._id !== chat._id));
                                 }}
                                 key={chat._id}
-                                className={`cursor-pointer px-3 py-2 rounded-lg transition-colors relative ${selectedChat === chat
-                                        ? "bg-indigo-600 text-white"
-                                        : "bg-gray-200 dark:bg-gray-700 text-black dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600"
+                                className={`cursor-pointer px-3 py-2 rounded-lg transition-all relative border border-transparent ${selectedChat === chat
+                                    ? "bg-indigo-600 text-white shadow-md"
+                                    : "bg-white/40 dark:bg-white/5 text-black dark:text-gray-200 hover:bg-white/60 dark:hover:bg-white/10 border-white/10"
                                     }`}
                             >
                                 <div className="flex justify-between items-center">
