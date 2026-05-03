@@ -18,7 +18,7 @@ const Register = () => {
         try {
             const formattedData = {
                 ...data,
-                skills: data.skills.split(',').map(skill => skill.trim()).filter(Boolean)
+                skills: data.skills ? data.skills.split(',').map(skill => skill.trim()).filter(Boolean) : []
             };
             await registerUser(formattedData);
             navigate('/dashboard');
