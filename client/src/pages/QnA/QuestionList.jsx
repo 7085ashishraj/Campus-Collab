@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import { Plus, MessageCircle, Calendar, User } from 'lucide-react';
 
 const QuestionList = () => {
@@ -13,7 +13,7 @@ const QuestionList = () => {
 
     const fetchQuestions = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/questions');
+            const { data } = await api.get('/questions');
             setQuestions(data);
         } catch (error) {
             console.error("Error fetching questions", error);

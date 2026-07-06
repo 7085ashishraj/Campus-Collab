@@ -22,6 +22,8 @@ import { useChat } from '../context/ChatProvider';
 import UserDetailModal from '../components/UserDetailModal';
 import { Link } from 'react-router-dom';
 
+const BASE_URL = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:5000';
+
 const ProjectDetails = () => {
     const { id } = useParams();
     const { user } = useAuth();
@@ -279,7 +281,7 @@ const ProjectDetails = () => {
                                         {project.files.map(file => (
                                             <a
                                                 key={file._id}
-                                                href={`http://localhost:5000${file.path}`}
+                                                href={`${BASE_URL}${file.path}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="flex items-start p-3 bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-lg hover:border-indigo-300 dark:hover:border-indigo-500 hover:shadow-sm transition-all group backdrop-blur-sm"

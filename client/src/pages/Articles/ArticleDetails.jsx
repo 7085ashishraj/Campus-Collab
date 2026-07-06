@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import { ArrowLeft, Heart, Calendar, User, Share2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -16,7 +16,7 @@ const ArticleDetails = () => {
 
     const fetchArticle = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/api/articles/${id}`);
+            const { data } = await api.get(`/articles/${id}`);
             setArticle(data);
         } catch (error) {
             console.error("Error fetching article", error);
@@ -27,7 +27,7 @@ const ArticleDetails = () => {
 
     const handleLike = async () => {
         try {
-            const { data } = await axios.put(`http://localhost:5000/api/articles/${id}/like`, {}, {
+            const { data } = await api.put(`/articles/${id}/like`, {}, {
                 withCredentials: true,
                 headers: {
                     Authorization: `Bearer ${user.accessToken}`

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import { useAuth } from '../../context/AuthContext';
 
 const CreateArticle = () => {
@@ -17,7 +17,7 @@ const CreateArticle = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await axios.post('http://localhost:5000/api/articles', {
+            await api.post('/articles', {
                 ...formData,
                 tags: formData.tags.split(',').map(tag => tag.trim())
             }, {

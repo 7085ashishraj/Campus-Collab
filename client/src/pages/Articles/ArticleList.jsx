@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import { Plus, Heart, Calendar, User } from 'lucide-react';
 
 const ArticleList = () => {
@@ -13,7 +13,7 @@ const ArticleList = () => {
 
     const fetchArticles = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/articles');
+            const { data } = await api.get('/articles');
             setArticles(data);
         } catch (error) {
             console.error("Error fetching articles", error);

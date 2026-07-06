@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import { ArrowLeft, MessageCircle, Calendar, User, Send } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -18,7 +18,7 @@ const QuestionDetails = () => {
 
     const fetchQuestion = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/api/questions/${id}`);
+            const { data } = await api.get(`/questions/${id}`);
             setQuestion(data);
         } catch (error) {
             console.error("Error fetching question", error);
@@ -33,7 +33,7 @@ const QuestionDetails = () => {
 
         setSubmitting(true);
         try {
-            const { data } = await axios.post(`http://localhost:5000/api/questions/${id}/answers`, {
+            const { data } = await api.post(`/questions/${id}/answers`, {
                 content: newAnswer
             }, {
                 withCredentials: true,
