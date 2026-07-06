@@ -142,7 +142,7 @@ const deleteProject = async (req, res) => {
 // @route   GET /api/projects/:id/pdf
 // @access  Public
 const exportProjectPDF = async (req, res) => {
-    const puppeteer = require('puppeteer');
+    const PDFDocument = require('pdfkit');
     try {
         const project = await Project.findById(req.params.id).populate('owner');
 
@@ -150,50 +150,41 @@ const exportProjectPDF = async (req, res) => {
             return res.status(404).json({ message: 'Project not found' });
         }
 
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
+        const doc = new PDFDocument();
+        const buffers = [];
+        
+        doc.on('data', buffers.push.bind(buffers));
+        doc.on('end', () => {
+            const pdfData = Buffer.concat(buffers);
+            res.writeHead(200, {
+                'Content-Length': Buffer.byteLength(pdfData),
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': `attachment;filename=${encodeURIComponent(project.title)}.pdf`,
+            });
+            res.end(pdfData);
+        });
 
-        const content = `
-            <!DOCTYPE html>
-            <html>
-                <head>
-                    <title>${project.title}</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; padding: 20px; }
-                        h1 { color: #333; }
-                        .meta { color: #666; margin-bottom: 20px; }
-                        .section { margin-bottom: 15px; }
-                    </style>
-                </head>
-                <body>
-                    <h1>${project.title}</h1>
-                    <div class="meta">
-                        <p><strong>University:</strong> ${project.university}</p>
-                        <p><strong>Owner:</strong> ${project.owner.name}</p>
-                    </div>
-                    <div class="section">
-                        <h3>Summary</h3>
-                        <p>${project.summary}</p>
-                    </div>
-                    <div class="section">
-                        <h3>Description</h3>
-                        <p>${project.description}</p>
-                    </div>
-                    <div class="section">
-                        <h3>Tech Stack</h3>
-                        <p>${project.techStack.join(', ')}</p>
-                    </div>
-                </body>
-            </html>
-        `;
-
-        await page.setContent(content);
-        const pdfBuffer = await page.pdf({ format: 'A4' });
-
-        await browser.close();
-
-        res.set('Content-Type', 'application/pdf');
-        res.send(pdfBuffer);
+        doc.fontSize(25).text(project.title, { underline: true });
+        doc.moveDown();
+        
+        doc.fontSize(12).fillColor('gray').text(`University: ${project.university}`);
+        doc.text(`Owner: ${project.owner.name}`);
+        doc.moveDown();
+        
+        doc.fontSize(16).fillColor('black').text('Summary');
+        doc.fontSize(12).text(project.summary || 'N/A');
+        doc.moveDown();
+        
+        doc.fontSize(16).text('Description');
+        // Simple HTML strip if description contains any tags
+        const cleanDesc = (project.description || 'N/A').replace(/<[^>]+>/g, '');
+        doc.fontSize(12).text(cleanDesc);
+        doc.moveDown();
+        
+        doc.fontSize(16).text('Tech Stack');
+        doc.fontSize(12).text((project.techStack || []).join(', ') || 'N/A');
+        
+        doc.end();
 
     } catch (error) {
         res.status(500).json({ message: error.message });
