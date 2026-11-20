@@ -78,6 +78,8 @@ Before you begin, ensure you have the following installed on your local machine:
 
    A sleeping Render service can take about a minute to start. Authentication waits up to 90 seconds and displays a startup notice after 10 seconds. If signup loses its response, try signing in before registering again. Do not automatically retry account creation.
 
+   Check `/api/health` to verify database connectivity and authentication configuration. It returns HTTP 200 only when both are ready; otherwise API requests receive HTTP 503 without waiting on buffered database queries. The backend retries a failed MongoDB connection every 10 seconds. A `querySrv ENOTFOUND` error requires checking the Atlas cluster and correcting `MONGO_URI`; code cannot restore a deleted or paused cloud database. For local development with MongoDB installed, use `mongodb://127.0.0.1:27017/campuscollab`.
+
 4. **Run the application:**
    To run both the client and server concurrently from the root directory:
    ```bash

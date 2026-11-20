@@ -1,8 +1,3 @@
-const express = require('express'); // Server entry point
-const mongoose = require('mongoose');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
 const dotenv = require('dotenv');
 const path = require('path');
 
@@ -10,46 +5,19 @@ const path = require('path');
 dotenv.config({ path: path.join(__dirname, '.env') });
 dotenv.config();
 const corsOptions = require('./config/cors');
-
-// Connect to Database
-const connectDB = require('./config/db');
-connectDB();
-
-const app = express();
-
-// Middleware
-app.use(helmet());
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(morgan('dev'));
-
-// Static folder for uploads
-app.use('/uploads', express.static('uploads'));
-
-// Routes
-app.get('/', (req, res) => {
-    res.send('CampusCollab API is running...');
-});
-
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/projects', require('./routes/projectRoutes'));
-app.use('/api/upload', require('./routes/uploadRoutes'));
-app.use('/api/notifications', require('./routes/notificationRoutes'));
-app.use('/api/chat', require('./routes/chatRoutes'));
-app.use('/api/message', require('./routes/messageRoutes'));
-app.use('/api/articles', require('./routes/articleRoutes'));
-app.use('/api/questions', require('./routes/questionRoutes'));
-
-// Error Handling Middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ message: 'Server Error', error: err.message });
-});
+const { connectDBWithRetry } = require('./config/db');
+const app = require('./app')();
 
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
+});
+
+// Keep health checks and clear 503 responses available during database outages.
+// An existing cluster can recover without a backend restart.
+connectDBWithRetry().catch(error => {
+    console.error(`Database initialization failed (${error.name}).`);
 });
 
 const io = require("socket.io")(server, {
