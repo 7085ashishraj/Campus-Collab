@@ -60,7 +60,7 @@ Before you begin, ensure you have the following installed on your local machine:
    ```
 
 3. **Environment Variables:**
-   Copy `server/.env.example` to `server/.env` and configure the database and two different token secrets:
+   Copy `server/.env.example` to `server/.env` and configure the database and access-token secret:
    ```env
    PORT=5000
    MONGO_URI=your_mongodb_connection_string
@@ -69,6 +69,8 @@ Before you begin, ensure you have the following installed on your local machine:
    CLIENT_URL=http://localhost:5173
    NODE_ENV=development
    ```
+
+   `JWT_SECRET` is required. `JWT_REFRESH_SECRET` is optional; use a different secret if you configure it. Signup and login work without refresh cookies.
 
    Copy `client/.env.example` to `client/.env` for local development. On Vercel, set `VITE_API_URL=https://campus-collab-backend-afs2.onrender.com/api` and redeploy after changing it. On Render, set `CLIENT_URL=https://campus-collab-client.vercel.app`, `NODE_ENV=production`, `MONGO_URI`, `JWT_SECRET`, and `JWT_REFRESH_SECRET`.
 
