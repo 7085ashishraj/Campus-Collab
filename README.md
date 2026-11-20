@@ -60,12 +60,21 @@ Before you begin, ensure you have the following installed on your local machine:
    ```
 
 3. **Environment Variables:**
-   Create a `.env` file in the root directory (and/or server directory as needed) and add your configurations. Here is a sample:
+   Copy `server/.env.example` to `server/.env` and configure the database and two different token secrets:
    ```env
    PORT=5000
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET=your_secret_key
+   JWT_REFRESH_SECRET=your_different_refresh_secret_key
+   CLIENT_URL=http://localhost:5173
+   NODE_ENV=development
    ```
+
+   Copy `client/.env.example` to `client/.env` for local development. On Vercel, set `VITE_API_URL=https://campus-collab-backend-afs2.onrender.com/api` and redeploy after changing it. On Render, set `CLIENT_URL=https://campus-collab-client.vercel.app`, `NODE_ENV=production`, `MONGO_URI`, `JWT_SECRET`, and `JWT_REFRESH_SECRET`.
+
+   On `*.vercel.app`, REST requests use `/api` on the frontend's own origin. The API rewrite in `client/vercel.json` must stay before the SPA fallback and forward to the Render backend. `VITE_API_URL` still supplies the direct backend URL for chat sockets and file links.
+
+   A sleeping Render service can take about a minute to start. Authentication waits up to 90 seconds and displays a startup notice after 10 seconds. If signup loses its response, try signing in before registering again. Do not automatically retry account creation.
 
 4. **Run the application:**
    To run both the client and server concurrently from the root directory:

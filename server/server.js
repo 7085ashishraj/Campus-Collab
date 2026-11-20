@@ -4,9 +4,12 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+const path = require('path');
 
 // Load environment variables
+dotenv.config({ path: path.join(__dirname, '.env') });
 dotenv.config();
+const corsOptions = require('./config/cors');
 
 // Connect to Database
 const connectDB = require('./config/db');
@@ -16,10 +19,7 @@ const app = express();
 
 // Middleware
 app.use(helmet());
-app.use(cors({
-    origin: [process.env.CLIENT_URL, 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'],
-    credentials: true
-}));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -54,9 +54,7 @@ const server = app.listen(PORT, () => {
 
 const io = require("socket.io")(server, {
     pingTimeout: 60000,
-    cors: {
-        origin: [process.env.CLIENT_URL, "http://localhost:5173"],
-    },
+    cors: corsOptions,
 });
 
 io.on("connection", (socket) => {

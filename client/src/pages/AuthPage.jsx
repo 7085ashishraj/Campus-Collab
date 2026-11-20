@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getAuthErrorMessage } from '../api/auth';
 import { GraduationCap, Mail, Lock, User, School, BookOpen, Eye, EyeOff, Loader2 } from 'lucide-react';
 import Header from '../components/LandingPage/header';
 import bgVideo from '../assets/bg.mp4';
@@ -104,6 +105,21 @@ const AuthPage = () => {
     );
 };
 
+const AuthLoadingNotice = () => {
+    const [isSlow, setIsSlow] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsSlow(true), 10000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    return isSlow ? (
+        <p role="status" className="mt-3 text-sm text-indigo-100">
+            The server may be starting up. Please keep this page open; this can take about a minute.
+        </p>
+    ) : null;
+};
+
 const LoginForm = ({ isActive, login, navigate, toggleMode }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [showPassword, setShowPassword] = useState(false);
@@ -117,14 +133,14 @@ const LoginForm = ({ isActive, login, navigate, toggleMode }) => {
             await login(data.email, data.password);
             navigate('/dashboard');
         } catch (error) {
-            setServerError(error.response?.data?.message || 'Login failed.');
+            setServerError(getAuthErrorMessage(error));
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-full px-12 bg-transparent text-center">
+        <div inert={!isActive} className="flex flex-col items-center justify-center h-full px-12 bg-transparent text-center">
             <h1 className="text-3xl font-bold mb-4 text-white">Sign in</h1>
             <div className="flex gap-4 mb-4">
                 {/* Social Icons could go here */}
@@ -132,7 +148,7 @@ const LoginForm = ({ isActive, login, navigate, toggleMode }) => {
             <span className="text-sm text-gray-200 mb-6">or use your email account</span>
 
             {serverError && (
-                <div className="mb-4 w-full bg-red-500/20 text-red-200 px-4 py-2 rounded text-sm backdrop-blur-sm border border-red-500/30">
+                <div role="alert" className="mb-4 w-full bg-red-500/20 text-red-200 px-4 py-2 rounded text-sm backdrop-blur-sm border border-red-500/30">
                     {serverError}
                 </div>
             )}
@@ -171,12 +187,14 @@ const LoginForm = ({ isActive, login, navigate, toggleMode }) => {
                 </div>
 
                 <button
+                    type="submit"
                     disabled={isLoading}
                     className="w-full bg-indigo-600/90 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors uppercase tracking-wider mt-4 flex justify-center backdrop-blur-sm shadow-lg"
                 >
-                    {isLoading ? <Loader2 className="animate-spin" /> : 'Sign In'}
+                    {isLoading ? <><Loader2 className="animate-spin mr-2" /> Signing in...</> : 'Sign In'}
                 </button>
             </form>
+            {isLoading && <AuthLoadingNotice />}
 
             {/* Mobile Toggle */}
             <div className="mt-6 lg:hidden">
@@ -205,19 +223,19 @@ const RegisterForm = ({ isActive, registerUser, navigate, toggleMode }) => {
             await registerUser(formattedData);
             navigate('/dashboard');
         } catch (error) {
-            setServerError(error.response?.data?.message || 'Registration failed.');
+            setServerError(getAuthErrorMessage(error, 'register'));
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-full px-12 bg-transparent text-center">
+        <div inert={!isActive} className="flex flex-col items-center justify-center h-full px-12 bg-transparent text-center">
             <h1 className="text-3xl font-bold mb-4 text-white">Create Account</h1>
             <span className="text-sm text-gray-200 mb-6">use your email for registration</span>
 
             {serverError && (
-                <div className="mb-4 w-full bg-red-500/20 text-red-200 px-4 py-2 rounded text-sm backdrop-blur-sm border border-red-500/30">
+                <div role="alert" className="mb-4 w-full bg-red-500/20 text-red-200 px-4 py-2 rounded text-sm backdrop-blur-sm border border-red-500/30">
                     {serverError}
                 </div>
             )}
@@ -264,9 +282,10 @@ const RegisterForm = ({ isActive, registerUser, navigate, toggleMode }) => {
                     disabled={isLoading}
                     className="w-full bg-indigo-600/90 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors uppercase tracking-wider mt-2 flex justify-center backdrop-blur-sm shadow-lg"
                 >
-                    {isLoading ? <Loader2 className="animate-spin" /> : 'Sign Up'}
+                    {isLoading ? <><Loader2 className="animate-spin mr-2" /> Creating account...</> : 'Sign Up'}
                 </button>
             </form>
+            {isLoading && <AuthLoadingNotice />}
 
             {/* Mobile Toggle */}
             <div className="mt-4 lg:hidden">
