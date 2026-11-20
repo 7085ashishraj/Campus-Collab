@@ -80,6 +80,8 @@ Before you begin, ensure you have the following installed on your local machine:
 
    Check `/api/health` to verify database connectivity and authentication configuration. It returns HTTP 200 only when both are ready; otherwise API requests receive HTTP 503 without waiting on buffered database queries. The backend retries a failed MongoDB connection every 10 seconds. A `querySrv ENOTFOUND` error requires checking the Atlas cluster and correcting `MONGO_URI`; code cannot restore a deleted or paused cloud database. For local development with MongoDB installed, use `mongodb://127.0.0.1:27017/campuscollab`.
 
+   If Compass connects to a local database, put `MONGO_URI=mongodb://127.0.0.1:27017/campuscollab` in an ignored `server/.env.local` file. It supplies local settings before `server/.env`; existing environment variables from Render still take priority. Compass is a database client, and a database running on your computer is separate from the hosted database used by the public website.
+
 4. **Run the application:**
    To run both the client and server concurrently from the root directory:
    ```bash

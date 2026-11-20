@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 
 // Load environment variables
+dotenv.config({ path: path.join(__dirname, '.env.local') });
 dotenv.config({ path: path.join(__dirname, '.env') });
 dotenv.config();
 const corsOptions = require('./config/cors');
